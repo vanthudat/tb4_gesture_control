@@ -1,0 +1,31 @@
+# Tham số cho hai node; tên khối phải khớp tên node khai báo trong launch.
+# Các giá trị thời gian bên dưới tính bằng giây, không phải số frame.
+gesture_recognition_node:
+  ros__parameters:
+    use_sim_time: false  # Webcam dùng thời gian thực, không chờ /clock của Gazebo.
+    camera_index: 0      # Chọn /dev/video0; đổi index nếu máy có nhiều thiết bị.
+    show_window: true    # false: vẫn nhận diện/publish nhưng không mở dashboard.
+    model_path: ""      # Rỗng: ~/.cache/tb4_gesture_control/gesture_recognizer.task.
+    confidence_threshold: 0.65  # Ngưỡng score nhãn tĩnh; 0.65 tương ứng 65%.
+    stable_seconds: 0.35       # Nhãn chọn/xác nhận phải giữ ổn định ít nhất 0,35 s.
+    wave_window: 2.0           # Chỉ xét chuỗi chuyển động Wave trong 2 giây gần nhất.
+    wave_excursion: 0.04       # Biên độ ngang bằng 4% chiều rộng ảnh cho mỗi lần đảo chiều.
+    wave_tilt_excursion: 0.30  # Biên độ lắc ngón/cổ tay theo chiều dài lòng bàn tay.
+
+robot_behavior_node:
+  ros__parameters:
+    use_sim_time: false  # Watchdog/timer vẫn chạy khi mô phỏng pause.
+    linear_speed: 0.30   # m/s; dấu tiến/lùi được đặt trong từng chặng của behavior.py.
+    angular_speed: 1.0  # rad/s; dấu quyết định quay trái/phải.
+    travel_distance: 0.30  # Mét cho MỖI chặng tiến hoặc lùi.
+    cycles: 4             # 4 chu kỳ tiến-lùi, tổng 8 chặng.
+    circle_radius: 0.60   # Mét; đi đúng một vòng theo góc quay odometry.
+    wave_angle: 0.40      # Radian; lần lượt quay +A, -2A, +A để chào và trở lại hướng cũ.
+    signal_timeout: 0.80  # Dừng nếu quá thời gian này không có cử chỉ hợp lệ.
+    odom_timeout: 0.50    # Dừng nếu không cập nhật odometry trong 0,50 s.
+    scan_timeout: 0.50    # Dừng nếu không cập nhật LiDAR trong 0,50 s.
+    selection_timeout: 8.0  # Lựa chọn hết hạn sau 8 s nếu chưa xác nhận.
+    segment_timeout: 60.0   # Chặn một chặng chạy mãi khi robot kẹt/cảm biến sai.
+    obstacle_distance: 0.50 # Mét; dừng nếu vật cản quá gần ở bất kỳ hướng nào.
+    rearm_seconds: 0.20     # Khoảng nhãn trung tính để cho phép nhận lại cùng cử chỉ.
+    require_scan: true     # Giữ true để bắt buộc có kiểm tra LiDAR trước và trong khi chạy.

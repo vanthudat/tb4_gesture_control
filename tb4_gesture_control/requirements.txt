@@ -1,0 +1,9 @@
+# Các thư viện Python cho môi trường Ubuntu 22.04 / Python 3.10 / ROS 2 Humble.
+# Các gói ROS như rclpy không cài qua file này; chúng đến từ môi trường ROS đã source.
+# Giới hạn NumPy dưới 2 để phù hợp môi trường Humble của dự án hiện tại.
+numpy>=1.23,<2
+# Khóa phiên bản MediaPipe đang dùng để API Gesture Recognizer không đổi ngoài ý muốn.
+mediapipe==0.10.20
+# Bản contrib cung cấp module cv2 cho cả đọc webcam và vẽ dashboard.
+# Không cài thêm opencv-python/opencv-python-headless song song vì chúng cùng cung cấp cv2.
+opencv-contrib-python>=4.8,<4.12

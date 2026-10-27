@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!-- Thông tin package và phụ thuộc ROS; tên phải khớp setup.py và marker resource/. -->
+<package format="3">
+  <name>tb4_gesture_control</name>
+  <version>0.1.0</version>
+  <description>Non-verbal interaction and confirmed gesture behaviors for TurtleBot 4.</description>
+  <maintainer email="student@example.com">TurtleBot 4 student</maintainer>
+  <license>Apache-2.0</license>
+  <!-- Package viết bằng Python nên dùng ament_python để colcon đóng gói. -->
+  <buildtool_depend>ament_python</buildtool_depend>
+  <!-- Node Python và các kiểu bản tin: cử chỉ, vận tốc, odometry, LiDAR, clock. -->
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>rosgraph_msgs</exec_depend>
+  <!-- TF và description để biểu diễn robot/dock trong hệ tọa độ ROS. -->
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>xacro</exec_depend>
+  <!-- Tìm tài nguyên đã cài và tạo các launch ROS 2. -->
+  <exec_depend>ament_index_python</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <!-- Thư viện ảnh phía hệ thống; phiên bản wheel Python dùng theo requirements.txt. -->
+  <exec_depend>python3-opencv</exec_depend>
+  <!-- Thành phần TurtleBot 4/Create 3 được tái sử dụng từ bài mô phỏng trước. -->
+  <exec_depend>turtlebot4_ignition_bringup</exec_depend>
+  <exec_depend>turtlebot4_ignition_gui_plugins</exec_depend>
+  <exec_depend>turtlebot4_description</exec_depend>
+  <exec_depend>irobot_create_description</exec_depend>
+  <exec_depend>irobot_create_common_bringup</exec_depend>
+  <exec_depend>irobot_create_ignition_bringup</exec_depend>
+  <exec_depend>irobot_create_ignition_plugins</exec_depend>
+  <!-- Gazebo simulator và cầu nối bản tin giữa Gazebo với ROS 2. -->
+  <exec_depend>ros_gz_sim</exec_depend>
+  <exec_depend>ros_gz_bridge</exec_depend>
+  <!-- Báo cho colcon chọn đúng cơ chế build thay vì tìm CMakeLists.txt. -->
+  <export><build_type>ament_python</build_type></export>
+</package>

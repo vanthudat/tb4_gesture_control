@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<sdf version="1.7">
+  <!-- Tên world phải khớp -world khi spawn và world trong các sensor bridge. -->
+  <world name="gesture_arena">
+    <!-- Bước vật lý 0,003 s; hệ số thời gian thực mục tiêu là 1,0. -->
+    <physics name="physics" type="ignored">
+      <max_step_size>0.003</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+    <!-- Các system xử lý vật lý, tạo đối tượng theo lệnh và truyền cảnh cho GUI. -->
+    <plugin filename="ignition-gazebo-physics-system" name="ignition::gazebo::systems::Physics"/>
+    <plugin filename="ignition-gazebo-user-commands-system" name="ignition::gazebo::systems::UserCommands"/>
+    <plugin filename="ignition-gazebo-scene-broadcaster-system" name="ignition::gazebo::systems::SceneBroadcaster"/>
+    <!-- URDF TurtleBot/Create 3 đã nạp Sensors system với renderer ogre2.
+         Không nạp lại Sensors system ở đây để tránh hai bộ xử lý trùng nhau. -->
+    <plugin filename="ignition-gazebo-imu-system" name="ignition::gazebo::systems::Imu"/>
+    <!-- Ánh sáng có hướng; pose là x y z roll pitch yaw, góc tính bằng radian. -->
+    <light name="sun" type="directional">
+      <pose>0 0 10 0 0 0</pose><direction>-0.3 0.2 -1</direction>
+      <diffuse>0.8 0.8 0.8 1</diffuse><specular>0.2 0.2 0.2 1</specular>
+      <cast_shadows>true</cast_shadows>
+    </light>
+    <!-- Sàn cố định: collision cho vật lý, visual cho hình ảnh; hình hiển thị 20×20 m. -->
+    <model name="floor">
+      <static>true</static><link name="link">
+        <collision name="collision"><geometry><plane><normal>0 0 1</normal><size>20 20</size></plane></geometry></collision>
+        <visual name="visual"><geometry><plane><normal>0 0 1</normal><size>20 20</size></plane></geometry>
+          <material><ambient>0.65 0.65 0.65 1</ambient><diffuse>0.65 0.65 0.65 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+    <!-- Tường bao đặt cách tâm 9 m. Vùng giữa sân dành cho tiến/lùi và vòng tròn.
+         Mỗi tường có cả collision lẫn visual; không chỉ là vật trang trí. -->
+    <model name="north_wall"><static>true</static><pose>0 9 0.5 0 0 0</pose><link name="link">
+      <collision name="collision"><geometry><box><size>18 0.2 1</size></box></geometry></collision>
+      <visual name="visual"><geometry><box><size>18 0.2 1</size></box></geometry></visual>
+    </link></model>
+    <model name="south_wall"><static>true</static><pose>0 -9 0.5 0 0 0</pose><link name="link">
+      <collision name="collision"><geometry><box><size>18 0.2 1</size></box></geometry></collision>
+      <visual name="visual"><geometry><box><size>18 0.2 1</size></box></geometry></visual>
+    </link></model>
+    <model name="east_wall"><static>true</static><pose>9 0 0.5 0 0 0</pose><link name="link">
+      <collision name="collision"><geometry><box><size>0.2 18 1</size></box></geometry></collision>
+      <visual name="visual"><geometry><box><size>0.2 18 1</size></box></geometry></visual>
+    </link></model>
+    <model name="west_wall"><static>true</static><pose>-9 0 0.5 0 0 0</pose><link name="link">
+      <collision name="collision"><geometry><box><size>0.2 18 1</size></box></geometry></collision>
+      <visual name="visual"><geometry><box><size>0.2 18 1</size></box></geometry></visual>
+    </link></model>
+  </world>
+</sdf>
